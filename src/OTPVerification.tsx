@@ -7,7 +7,6 @@ import {
   Platform,
   useWindowDimensions,
   Modal,
-  Image,
   TouchableOpacity,
   Button,
 } from 'react-native';
@@ -33,13 +32,7 @@ import OtpInputs from 'react-native-otp-inputs';
 
 // Styles, Colors, SVGs
 import Styles from './styles';
-
-// CountDown timer
-export const TimerCountDown = (counter: number): any => {
-  return (
-    (counter - (counter %= 60)) / 60 + (9 < counter ? ':' : ':0') + counter
-  );
-};
+import CountDownTimer from './countdownTimer';
 
 const OTPVerification = (): JSX.Element => {
   const {width, height} = useWindowDimensions();
@@ -71,18 +64,20 @@ const OTPVerification = (): JSX.Element => {
   //   };
 
   // Navigate User to Dashboard
-  const NavigateToDashboard = (): void => {
-    // dispatch(loginUserSuccess(userData?.data));
-    // // Store user details in the storage
-    // AuthStorage.setUserData(userData);
-    setModalVisible(!modalVisible);
-  };
+  // const NavigateToDashboard = (): void => {
+  //   // dispatch(loginUserSuccess(userData?.data));
+  //   // // Store user details in the storage
+  //   // AuthStorage.setUserData(userData);
+  //   setModalVisible(!modalVisible);
+  // };
 
   useEffect(() => {
     const timer: any =
       counter > 0 &&
       setInterval(() => {
-        if (counter > 0) setCounter(counter - 1);
+        if (counter > 0) {
+          setCounter(counter - 1);
+        }
       }, 1000);
     return () => {
       clearInterval(timer);
@@ -125,7 +120,7 @@ const OTPVerification = (): JSX.Element => {
           <Text style={[Styles.textDesc, {color: 'red'}]}>
             We sent you an email with a code.{'\n'}Please enter the code below
           </Text>
-          <View style={[Styles.lockView, {backgroundColor: 'purple'}]}></View>
+          <View style={[Styles.lockView, {backgroundColor: 'purple'}]} />
           {/* {otpError ? <ErrorMessage error={otpError} visible={true} /> : <></>} */}
         </View>
         <KeyboardAvoidingView
@@ -147,8 +142,7 @@ const OTPVerification = (): JSX.Element => {
           />
 
           <Text style={[Styles.countDown, {color: 'violet', fontSize: 8}]}>
-            code expires in:{' '}
-            <Text style={[{color: 'purple'}]}>{TimerCountDown(counter)}</Text>{' '}
+            code expires in: <CountDownTimer seconds={300} />
           </Text>
           <View style={[Styles.buttonContainer]}>
             <Button title="Verify" />
@@ -171,7 +165,7 @@ const OTPVerification = (): JSX.Element => {
                   <Text>{''}</Text>
                 </TouchableOpacity>
               </View>
-              <View style={[Styles.avatarContainer]}></View>
+              <View style={[Styles.avatarContainer]} />
               <View style={[Styles.textContainer]}>
                 <Text style={[Styles.text, {color: 'violet'}]}>
                   Welcome Aboard
