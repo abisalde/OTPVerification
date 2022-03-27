@@ -1,1 +1,3 @@
-# OTPVerification
+## OTPVerification
+
+- Verify OTP function
